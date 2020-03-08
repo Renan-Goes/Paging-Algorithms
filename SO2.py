@@ -66,11 +66,11 @@ def Otimo(num_quadros, processos):
         if processo_atual in quadros:
             continue
         pos_processos = {k: 0 for k in processos}
-        for pos, processo_futuro in enumerate(processos[i + 5:]):
+        for pos, processo_futuro in enumerate(processos[i + num_quadros + 1:]):
             if processo_futuro != processo_atual and pos_processos[processo_futuro] <= 0:
                 pos_processos[processo_futuro] = pos + 1
                 
-        quadro_subst = PegarProcesso(pos_processos, processos[:i + 4], quadros)
+        quadro_subst = PegarProcesso(pos_processos, processos[:i + num_quadros], quadros)
         quadros[quadros.index(int(quadro_subst[0]))] = processo_atual
 
         falta_de_quadros += 1
@@ -84,7 +84,7 @@ def LRU(num_quadros, processos):
         quadros[i] = processo
         falta_de_quadros += 1
     
-    for i, processo_atual in enumerate(processos[num_quadros:], start = 4):
+    for i, processo_atual in enumerate(processos[num_quadros:], start = num_quadros):
         if processo_atual in quadros:
             continue
         
